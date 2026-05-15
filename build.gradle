@@ -1,0 +1,152 @@
+buildscript {
+    ext {
+        springVersion = '5.2.3.RELEASE'
+        springBootVersion = '2.2.4.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
+        classpath 'org.ajoberstar:gradle-git:1.4.2'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'maven'
+    id 'maven-publish'
+    id 'application'
+    id 'org.springframework.boot' version '2.1.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'com.jfrog.artifactory' version '4.13.0'
+    // id 'org.ajoberstar.grgit' — removed for census31 seed (no .git)
+}
+
+mainClassName = 'uk.gov.ons.census.fwmt.tm.mock.Application'
+
+description = 'census31-fwmt-tm-mock'
+group = 'uk.gov.ons.census.fwmt'
+version = '3.0.40-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+jar {
+    group = 'uk.gov.ons.census.fwmt'
+    baseName = 'census31-fwmt-tm-mock'
+    version = version
+}
+
+repositories {
+    mavenLocal()
+
+    maven {
+        url 'https://ons.jfrog.io/ons/libs-releases-virtual'
+        credentials {
+            username "${artifactory_user}"
+            password "${artifactory_password}"
+        }
+    }
+    maven {
+        url 'https://ons.jfrog.io/ons/libs-snapshots-virtual'
+        credentials {
+            username "${artifactory_user}"
+            password "${artifactory_password}"
+        }
+    }
+    mavenCentral()
+}
+
+artifactory {
+    contextUrl = 'https://ons.jfrog.io/ons/'
+    publish {
+        repository {
+            repoKey = 'libs-releases-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+        defaults {
+            publishBuildInfo = false
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = 'census31-fwmt-tm-mock'
+            version = version
+
+            from components.java
+        }
+    }
+}
+
+artifactoryPublish {
+    publications('maven')
+}
+
+springBoot {
+    buildInfo {
+        properties {
+            additional = [
+                    'Git-Commit': 'census31-seed'
+            ]
+        }
+    }
+}
+
+dependencies {
+
+    compile 'uk.gov.ons.census.fwmt:census31-fwmt-common:27.0.0'
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-web-services'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile('org.springframework.cloud:spring-cloud-spring-service-connector') {
+        exclude module: 'log4j'
+    }
+    compile('org.springframework.cloud:spring-cloud-cloudfoundry-connector') {
+        exclude module: 'log4j'
+    }
+
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude module: 'android-json'
+    }
+
+    compile 'org.apache.commons:commons-lang3:3.8.1'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
+    
+    compile 'com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4'
+
+    compile 'org.json:json:20180813'
+
+    compile 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    compile 'com.rabbitmq:amqp-client:5.5.1'
+
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
+    compile 'javax.validation:validation-api:2.0.1.Final'
+
+    compile 'ma.glasnost.orika:orika-core:1.5.4'
+
+    compile 'ma.glasnost.orika:orika-eclipse-tools:1.5.4'
+    
+    compile 'org.yaml:snakeyaml:1.23'
+
+    testCompile 'junit:junit:4.12'
+}

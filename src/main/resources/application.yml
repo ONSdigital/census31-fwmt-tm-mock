@@ -1,0 +1,48 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: census31-fwmt-tm-mocks
+  security:
+    user:
+      name: "user"
+      password: "password"
+  jackson:
+    date-format: uk.gov.ons.census.fwmt.tm.mock.config.RFC3339DateFormat
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+springfox.documentation.swagger.v2.path: "/api-docs"
+
+# Place /info and /health in the root
+management.endpoints.web.base-path: ''
+
+logging:
+  level:
+    root: WARN
+    uk.gov.ons.census.fwmt: INFO
+    org.springframework.security: INFO
+    org.springframework.web: INFO
+    org.springframework.amqp: INFO
+    org.hibernate: INFO
+    org.apache.commons.dbcp2: INFO
+    org.springframework: INFO
+  file: target/SpringErrors/spring.log
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{CID}] %logger{1}::%M - %msg%n"
+    file: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{CID}] %logger{1}::%M - %msg%n"
+
+rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+    virtualHost: /
+
+customisation:
+  logging:
+    logFlagType:
+      logAllMessages: true
