@@ -1,7 +1,7 @@
 package uk.gov.ons.census.fwmt.tm.mock.comet.api;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public class ApiResponseMessage {
