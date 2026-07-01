@@ -6,10 +6,8 @@ import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
 @Slf4j
 @ComponentScan(basePackages = {"uk.gov.ons.census.fwmt", "uk.gov.ons.census.fwmt.tm.mock.comet.api",
     "uk.gov.ons.census.fwmt.tm.mock.comet.configuration"})

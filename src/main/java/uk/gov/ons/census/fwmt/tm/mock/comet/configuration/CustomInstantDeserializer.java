@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.datatype.threetenbp.DateTimeUtils;
 import com.fasterxml.jackson.datatype.threetenbp.DecimalUtils;
 import com.fasterxml.jackson.datatype.threetenbp.deser.ThreeTenDateTimeDeserializerBase;
@@ -196,7 +197,7 @@ public class CustomInstantDeserializer<T extends Temporal>
       return value;
     }
     }
-    throw context.mappingException("Expected type float, integer, or string.");
+    throw JsonMappingException.from(context, "Expected type float, integer, or string.");
   }
 
   private ZoneId getZone(DeserializationContext context) {

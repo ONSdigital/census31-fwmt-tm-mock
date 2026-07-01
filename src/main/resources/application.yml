@@ -12,10 +12,6 @@ spring:
       password: "password"
   jackson:
     date-format: uk.gov.ons.census.fwmt.tm.mock.config.RFC3339DateFormat
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
-
-springfox.documentation.swagger.v2.path: "/api-docs"
 
 # Place /info and /health in the root
 management.endpoints.web.base-path: ''

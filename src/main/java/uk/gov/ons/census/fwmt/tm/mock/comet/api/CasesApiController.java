@@ -3,8 +3,8 @@ package uk.gov.ons.census.fwmt.tm.mock.comet.api;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import ma.glasnost.orika.MapperFacade;
 import uk.gov.ons.census.fwmt.common.data.tm.*;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.PauseManager;
+import uk.gov.ons.census.fwmt.tm.mock.config.CometCaseMapper;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
 
 @Controller
@@ -37,7 +37,7 @@ public class CasesApiController implements CasesApi {
   private PauseManager pauseManager;
 
   @Autowired
-  private MapperFacade mapperFacade;
+  private CometCaseMapper cometCaseMapper;
 
   @Override
   public ResponseEntity<Case> getCase(String id, Optional<String> include) {
@@ -74,7 +74,7 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPut");
     String accept = request.getHeader("Accept");
     log.info("Job Received: " + body.getReference(), " with accept: " + accept);
-    Case modelCase = mapperFacade.map(body, Case.class);
+    Case modelCase = cometCaseMapper.toCase(body);
     modelCase.setId(UUID.fromString(id));
     caseManager.addCase(modelCase);
     log.info("POST CaseId: {} : ADDED", id);
@@ -114,7 +114,7 @@ public class CasesApiController implements CasesApi {
     mockLogger.logEndpoint("CasesApiController", "casesByIdPausePut");
     String accept = request.getHeader("Accept");
     log.info("Job paused: " + id, " with accept: " + accept);
-    CasePause casePause = mapperFacade.map(body, CasePause.class);
+    CasePause casePause = cometCaseMapper.toCasePause(body);
     pauseManager.addPause(id, casePause);
     return new ResponseEntity<>(HttpStatus.OK);
   }

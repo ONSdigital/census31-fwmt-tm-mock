@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -15,7 +15,7 @@ public class RawRESTInterceptor implements HandlerInterceptor {
   @Autowired private MockMessageLogger mockLogger;
 
   @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-    ContentCachingRequestWrapper requestCacheWrapperObject = new ContentCachingRequestWrapper(request);
+    ContentCachingRequestWrapper requestCacheWrapperObject = new ContentCachingRequestWrapper(request, 1024 * 1024);
     requestCacheWrapperObject.getParameterMap(); // this is required to force caching to occur
 
     String body = new String((requestCacheWrapperObject).getContentAsByteArray());
