@@ -20,6 +20,7 @@
     <dependency>
       <groupId>uk.gov.ons.census.fwmt</groupId>
       <artifactId>census31-fwmt-common</artifactId>
+      <version>27.0.1-rc.905645</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
