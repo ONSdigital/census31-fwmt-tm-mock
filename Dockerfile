@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-slim
+FROM eclipse-temurin:25-jre
 ARG jar
 COPY $jar /opt/mock.jar
 ENV JAVA_OPTS=""
