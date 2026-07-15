@@ -7,7 +7,7 @@
   <parent>
     <groupId>uk.gov.ons.census.fwmt</groupId>
     <artifactId>census31-fwmt-parent</artifactId>
-    <version>27.0.1-rc.1</version>
+    <version>27.0.1</version>
     <relativePath/>
   </parent>
 
@@ -16,7 +16,7 @@
   <name>census31-fwmt-tm-mock</name>
 
   <properties>
-    <fwmt.common.version>27.0.1-rc.905645</fwmt.common.version>
+    <fwmt.common.version>27.0.1</fwmt.common.version>
   </properties>
 
   <dependencies>
