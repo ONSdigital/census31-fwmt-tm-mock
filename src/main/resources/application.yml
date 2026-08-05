@@ -13,8 +13,22 @@ spring:
   jackson:
     date-format: uk.gov.ons.census.fwmt.tm.mock.config.RFC3339DateFormat
 
-# Place /info and /health in the root
-management.endpoints.web.base-path: ''
+management:
+  # Place /info and /health in the root
+  endpoints:
+    web:
+      base-path: ''
+      exposure:
+        include: health,info,env,refresh
+  endpoint:
+    health:
+      show-details: always
+    env:
+      enabled: ${APP_TESTING:false}
+      post:
+        enabled: ${APP_TESTING:false}
+    refresh:
+      enabled: ${APP_TESTING:false}
 
 logging:
   level:
