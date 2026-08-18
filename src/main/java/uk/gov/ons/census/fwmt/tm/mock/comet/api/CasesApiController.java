@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import uk.gov.ons.census.fwmt.common.data.tm.*;
 import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.CaseManager;
@@ -19,7 +19,7 @@ import uk.gov.ons.census.fwmt.tm.mock.comet.api.managers.PauseManager;
 import uk.gov.ons.census.fwmt.tm.mock.config.CometCaseMapper;
 import uk.gov.ons.census.fwmt.tm.mock.logging.MockMessageLogger;
 
-@Controller
+@RestController
 public class CasesApiController implements CasesApi {
 
   private static final Logger log = LoggerFactory.getLogger(CasesApiController.class);

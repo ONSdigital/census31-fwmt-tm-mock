@@ -56,3 +56,10 @@ customisation:
   logging:
     logFlagType:
       logAllMessages: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: uk.gov.ons.census.fwmt.tm.mock
