@@ -169,6 +169,7 @@ substitutions:
   _DOCKER_REPO: "fwmtg-docker-release"
   _IMAGE: census31-fwmt-tm-mock
   _REGION: europe-west2
+  _REPO_SUFFIX: fwmtg-maven-release
   _CI_PROJECT_ID: c31-fwmtg-ci-prod
 
 options:
