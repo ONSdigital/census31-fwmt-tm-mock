@@ -1,0 +1,8 @@
+management:
+  endpoint:
+    env:
+      enabled: true
+      post:
+        enabled: true
+    refresh:
+      enabled: true
