@@ -20,6 +20,7 @@ out/
 .gradle
 build
 target/
+.flattened-pom.xml
 
 #Eclipse files
 .metadata

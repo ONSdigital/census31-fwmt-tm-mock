@@ -12,6 +12,7 @@
   </parent>
 
   <artifactId>census31-fwmt-tm-mock</artifactId>
+  <version>${revision}</version>
   <packaging>jar</packaging>
   <name>census31-fwmt-tm-mock</name>
 
