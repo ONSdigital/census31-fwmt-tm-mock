@@ -1,6 +1,5 @@
 package uk.gov.ons.census.fwmt.tm.mock.comet.api.managers;
 
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.ons.census.fwmt.common.data.tm.Case;
