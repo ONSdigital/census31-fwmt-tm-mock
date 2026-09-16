@@ -52,6 +52,18 @@ public class CasesApiController implements CasesApi {
     }
   }
 
+  public ResponseEntity<CaseRequest> getCaseRequest(String id) {
+    mockLogger.logEndpoint("CasesApiController", "caseRequestByIdGet");
+    CaseRequest caseRequest = caseManager.getCaseRequest(id);
+    if (caseRequest != null) {
+      log.info("GET  CaseId: {} : FOUND", id);
+      return new ResponseEntity<>(caseRequest, HttpStatus.ACCEPTED);
+    } else {
+      log.info("GET  CaseId: {} : NOT FOUND", id);
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+
   @Override
   public ResponseEntity<FetchResponse> getCases(String filter, String include, int pageNo, int pageSize,
       String order) {
@@ -77,6 +89,7 @@ public class CasesApiController implements CasesApi {
     Case modelCase = cometCaseMapper.toCase(body);
     modelCase.setId(UUID.fromString(id));
     caseManager.addCase(modelCase);
+    caseManager.addCaseRequest(id, body);
     log.info("POST CaseId: {} : ADDED", id);
     log.info("POST CaseId: {} : 'Ghost FWMT' Investigation", id);
     log.info("============================================");

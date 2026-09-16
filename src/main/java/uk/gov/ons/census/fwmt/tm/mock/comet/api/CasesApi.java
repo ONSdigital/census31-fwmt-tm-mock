@@ -32,6 +32,16 @@ public interface CasesApi {
       @Parameter(description = "Additional objects to include: CaseOutcomes, OutputArea, AccessInfo, DistributedToOfficer, AllocatedTo, all")
       @PathVariable("include") Optional<String> include);
 
+  // GET CaseRequest
+  @Operation(summary = "Get a CaseRequest.", operationId = "getCaseRequest")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "CaseRequest returned.",
+          content = @Content(schema = @Schema(implementation = CaseRequest.class))),
+      @ApiResponse(responseCode = "404", description = "The Case does not exist.")})
+  @RequestMapping(value = "/cases/{id}/request", produces = {"application/json"}, method = RequestMethod.GET)
+  ResponseEntity<CaseRequest> getCaseRequest(
+      @Parameter(description = "The Case identifier.", required = true) @PathVariable("id") String id);
+
   // GET Cases
   @Operation(summary = "Get Cases.", operationId = "getCases")
   @ApiResponses({
